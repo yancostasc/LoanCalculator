@@ -12,9 +12,6 @@ public class LoanRequest {
     @NotNull(message = "Data final é obrigatória")
     private LocalDate endDate;
 
-    @NotNull(message = "Primeiro pagamento é obrigatório")
-    private LocalDate firstPaymentDate;
-
     @Positive(message = "Valor do empréstimo deve ser positivo")
     private double loanAmount;
 
@@ -41,14 +38,6 @@ public class LoanRequest {
 
     public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
-    }
-
-    public LocalDate getFirstPaymentDate() {
-        return firstPaymentDate;
-    }
-
-    public void setFirstPaymentDate(LocalDate firstPaymentDate) {
-        this.firstPaymentDate = firstPaymentDate;
     }
 
     public double getLoanAmount() {

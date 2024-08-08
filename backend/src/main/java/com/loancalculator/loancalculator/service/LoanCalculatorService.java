@@ -15,7 +15,7 @@ public class LoanCalculatorService {
     public List<Payment> calculatePayments(LoanRequest request) {
         List<Payment> payments = new ArrayList<>();
         LocalDate currentDate = request.getStartDate();
-        LocalDate firstPaymentDate = request.getFirstPaymentDate();
+        LocalDate firstPaymentDate = request.getStartDate();
         double loanAmount = request.getLoanAmount();
         double interestRate = request.getInterestRate() / 100;
         double baseDays = request.getBaseDays();
