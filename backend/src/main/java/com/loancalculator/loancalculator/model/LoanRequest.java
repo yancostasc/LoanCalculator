@@ -21,44 +21,65 @@ public class LoanRequest {
     @Positive(message = "Taxa de juros deve ser positiva")
     private double interestRate;
 
-	public LocalDate getStartDate() {
-		return startDate;
-	}
+    @Positive(message = "Base de dias deve ser positiva")
+    private double baseDays;
 
-	public void setStartDate(LocalDate startDate) {
-		this.startDate = startDate;
-	}
+    @Positive(message = "Quantidade de parcelas deve ser positiva")
+    private int totalInstallments;
 
-	public LocalDate getEndDate() {
-		return endDate;
-	}
+    public LocalDate getStartDate() {
+        return startDate;
+    }
 
-	public void setEndDate(LocalDate endDate) {
-		this.endDate = endDate;
-	}
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
 
-	public LocalDate getFirstPaymentDate() {
-		return firstPaymentDate;
-	}
+    public LocalDate getEndDate() {
+        return endDate;
+    }
 
-	public void setFirstPaymentDate(LocalDate firstPaymentDate) {
-		this.firstPaymentDate = firstPaymentDate;
-	}
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
 
-	public double getLoanAmount() {
-		return loanAmount;
-	}
+    public LocalDate getFirstPaymentDate() {
+        return firstPaymentDate;
+    }
 
-	public void setLoanAmount(double loanAmount) {
-		this.loanAmount = loanAmount;
-	}
+    public void setFirstPaymentDate(LocalDate firstPaymentDate) {
+        this.firstPaymentDate = firstPaymentDate;
+    }
 
-	public double getInterestRate() {
-		return interestRate;
-	}
+    public double getLoanAmount() {
+        return loanAmount;
+    }
 
-	public void setInterestRate(double interestRate) {
-		this.interestRate = interestRate;
-	}
-    
+    public void setLoanAmount(double loanAmount) {
+        this.loanAmount = loanAmount;
+    }
+
+    public double getInterestRate() {
+        return interestRate;
+    }
+
+    public void setInterestRate(double interestRate) {
+        this.interestRate = interestRate;
+    }
+
+    public double getBaseDays() {
+        return baseDays;
+    }
+
+    public void setBaseDays(double baseDays) {
+        this.baseDays = baseDays;
+    }
+
+    public int getTotalInstallments() {
+        return totalInstallments;
+    }
+
+    public void setTotalInstallments(int totalInstallments) {
+        this.totalInstallments = totalInstallments;
+    }
 }
