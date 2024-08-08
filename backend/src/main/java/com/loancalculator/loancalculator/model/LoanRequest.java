@@ -7,10 +7,13 @@ import jakarta.validation.constraints.Positive;
 
 public class LoanRequest {
     @NotNull(message = "Data inicial é obrigatória")
-    private LocalDate startDate;
+     LocalDate startDate;
 
     @NotNull(message = "Data final é obrigatória")
     private LocalDate endDate;
+    
+    @NotNull(message = "Primeira data de pagamento é obrigatória")
+    private LocalDate firstPaymentDate;
 
     @Positive(message = "Valor do empréstimo deve ser positivo")
     private double loanAmount;
@@ -19,56 +22,66 @@ public class LoanRequest {
     private double interestRate;
 
     @Positive(message = "Base de dias deve ser positiva")
-    private double baseDays;
+    private int baseDays;
 
     @Positive(message = "Quantidade de parcelas deve ser positiva")
     private int totalInstallments;
 
-    public LocalDate getStartDate() {
-        return startDate;
-    }
+	public LocalDate getStartDate() {
+		return startDate;
+	}
 
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
-    }
+	public void setStartDate(LocalDate startDate) {
+		this.startDate = startDate;
+	}
 
-    public LocalDate getEndDate() {
-        return endDate;
-    }
+	public LocalDate getEndDate() {
+		return endDate;
+	}
 
-    public void setEndDate(LocalDate endDate) {
-        this.endDate = endDate;
-    }
+	public void setEndDate(LocalDate endDate) {
+		this.endDate = endDate;
+	}
 
-    public double getLoanAmount() {
-        return loanAmount;
-    }
+	public LocalDate getFirstPaymentDate() {
+		return firstPaymentDate;
+	}
 
-    public void setLoanAmount(double loanAmount) {
-        this.loanAmount = loanAmount;
-    }
+	public void setFirstPaymentDate(LocalDate firstPaymentDate) {
+		this.firstPaymentDate = firstPaymentDate;
+	}
 
-    public double getInterestRate() {
-        return interestRate;
-    }
+	public double getLoanAmount() {
+		return loanAmount;
+	}
 
-    public void setInterestRate(double interestRate) {
-        this.interestRate = interestRate;
-    }
+	public void setLoanAmount(double loanAmount) {
+		this.loanAmount = loanAmount;
+	}
 
-    public double getBaseDays() {
-        return baseDays;
-    }
+	public double getInterestRate() {
+		return interestRate;
+	}
 
-    public void setBaseDays(double baseDays) {
-        this.baseDays = baseDays;
-    }
+	public void setInterestRate(double interestRate) {
+		this.interestRate = interestRate;
+	}
 
-    public int getTotalInstallments() {
-        return totalInstallments;
-    }
+	public int getBaseDays() {
+		return baseDays;
+	}
 
-    public void setTotalInstallments(int totalInstallments) {
-        this.totalInstallments = totalInstallments;
-    }
+	public void setBaseDays(int baseDays) {
+		this.baseDays = baseDays;
+	}
+
+	public int getTotalInstallments() {
+		return totalInstallments;
+	}
+
+	public void setTotalInstallments(int totalInstallments) {
+		this.totalInstallments = totalInstallments;
+	}
+
+    
 }
