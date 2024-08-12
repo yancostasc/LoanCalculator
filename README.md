@@ -43,7 +43,7 @@ Para rodar o frontend do projeto:
 1. Acesse o diretório do frontend:
 
    ```
-   cd seu-repositorio/frontend
+   cd seu-repositorio/frontend/loan-calculator
    ```
 
 2. Instale as dependências e inicie a aplicação:
