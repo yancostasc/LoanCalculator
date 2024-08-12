@@ -57,61 +57,69 @@ public class LoanCalculatorService {
 
 		// Loop para calcular cada parcela a partir do primeiro pagamento
 		for (int i = 0; i < TOTAL_INSTALLMENTS; i++) {
-			// Cálculo dos juros provisionados desde a última data
-			provisionInterest = calculateProvisionInterest(remainingBalance, accumulatedInterest, interestRate,
-					paymentDetails.get(paymentDetails.size() - 1).getLoan().getCompetencyDate(), currentDate);
-			accumulatedInterest += provisionInterest;
+		    // Cálculo dos juros provisionados desde a última data
+		    provisionInterest = calculateProvisionInterest(remainingBalance, accumulatedInterest, interestRate,
+		            paymentDetails.get(paymentDetails.size() - 1).getLoan().getCompetencyDate(), currentDate);
+		    accumulatedInterest += provisionInterest;
 
-			// Reduzir o saldo devedor pela amortização mensal
-			remainingBalance -= monthlyAmortization;
+		    // Reduz o saldo devedor pela amortização mensal
+		    remainingBalance -= monthlyAmortization;
 
-			// Adicionar detalhes da parcela atual
-			LoanDetails loanDetails = createLoanDetail(currentDate, 0, remainingBalance, monthlyAmortization,
-					provisionInterest, accumulatedInterest, i + 1, true, paid);
-			paymentDetails.add(loanDetails);
+		    // Adiciona detalhes da parcela atual
+		    double newPaid = accumulatedInterest;
+		    System.out.println("teste, provision and accumulated " + newPaid + " - " + provisionInterest + " - " + accumulatedInterest);
+		    LoanDetails loanDetails = createLoanDetail(currentDate, 0, remainingBalance, monthlyAmortization,
+		            provisionInterest, accumulatedInterest, i + 1, true, newPaid);
+		    
+		    // Zera o acumulado de juros quando for um dia de pagamento
+		    accumulatedInterest = 0.0;
 
-			// Avançar para o próximo mês, ajustando a data para o final do mês
-			endOfMonth = currentDate.withDayOfMonth(currentDate.lengthOfMonth());
-			if (!endOfMonth.isEqual(currentDate)) {
-				provisionInterest = calculateProvisionInterest(remainingBalance, accumulatedInterest, interestRate,
-						currentDate, endOfMonth);
-				accumulatedInterest += provisionInterest;
-				LoanDetails endOfMonthLine = createLoanDetail(endOfMonth, 0, remainingBalance, 0.0, provisionInterest,
-						accumulatedInterest, i + 1, false, paid);
-				paymentDetails.add(endOfMonthLine);
-			}
+		    paymentDetails.add(loanDetails);
 
-			// Avançar para a próxima data de pagamento
-			currentDate = currentDate.plusMonths(1);
+		    // Avança para o próximo mês, ajustando a data para o final do mês
+		    endOfMonth = currentDate.withDayOfMonth(currentDate.lengthOfMonth());
+		    if (!endOfMonth.isEqual(currentDate)) {
+		        provisionInterest = calculateProvisionInterest(remainingBalance, accumulatedInterest, interestRate,
+		                currentDate, endOfMonth);
+		        accumulatedInterest += provisionInterest;
+		        LoanDetails endOfMonthLine = createLoanDetail(endOfMonth, 0, remainingBalance, 0.0, provisionInterest,
+		                accumulatedInterest, i + 1, false, paid);
+		        paymentDetails.add(endOfMonthLine);
+		    }
+
+		    // Avança para a próxima data de pagamento
+		    currentDate = currentDate.plusMonths(1);
 		}
 
 		return paymentDetails;
 	}
 
 	private LoanDetails createLoanDetail(LocalDate date, double loanAmount, double remainingBalance,
-			double amortization, double provisionInterest, double accumulatedInterest, int installmentNumber,
-			boolean isPaymentDay, double paid) {
-		LoanDetails loanDetails = new LoanDetails();
-		loanDetails.setLoan(new LoanDetails.Loan());
-		loanDetails.getLoan().setCompetencyDate(date);
-		loanDetails.getLoan().setLoanAmount(loanAmount);
-		loanDetails.getLoan().setOutstandingBalance(roundToTwoDecimalPlaces(remainingBalance));
+	        double amortization, double provisionInterest, double accumulatedInterest, int installmentNumber,
+	        boolean isPaymentDay, double newPaid) {
 
-		loanDetails.setInstallment(new LoanDetails.Installment());
-		loanDetails.getInstallment().setTotal(isPaymentDay ? roundToTwoDecimalPlaces(amortization + (accumulatedInterest + provisionInterest)) : 0.0);
-		loanDetails.getInstallment().setConsolidated(isPaymentDay ? installmentNumber + "/" + TOTAL_INSTALLMENTS : null);
+	    LoanDetails loanDetails = new LoanDetails();
+	    loanDetails.setLoan(new LoanDetails.Loan());
+	    loanDetails.getLoan().setCompetencyDate(date);
+	    loanDetails.getLoan().setLoanAmount(loanAmount);
+	    loanDetails.getLoan().setOutstandingBalance(roundToTwoDecimalPlaces(remainingBalance));
 
-		loanDetails.setPrincipal(new LoanDetails.Principal());
-		loanDetails.getPrincipal().setAmortization(isPaymentDay ? roundToTwoDecimalPlaces(amortization) : 0.0);
-		loanDetails.getPrincipal().setBalance(roundToTwoDecimalPlaces(remainingBalance));
+	    loanDetails.setInstallment(new LoanDetails.Installment());
+	    loanDetails.getInstallment().setTotal(isPaymentDay ? roundToTwoDecimalPlaces(amortization + (provisionInterest + accumulatedInterest)) : 0.0);
+	    loanDetails.getInstallment().setConsolidated(isPaymentDay ? installmentNumber + "/" + TOTAL_INSTALLMENTS : null);
 
-		loanDetails.setInterest(new LoanDetails.Interest());
-		loanDetails.getInterest().setProvision(roundToTwoDecimalPlaces(provisionInterest));
-		loanDetails.getInterest().setAccumulated(roundToTwoDecimalPlaces(accumulatedInterest));
-		loanDetails.getInterest().setPaid(isPaymentDay ? roundToTwoDecimalPlaces(provisionInterest) : 0.0);
+	    loanDetails.setPrincipal(new LoanDetails.Principal());
+	    loanDetails.getPrincipal().setAmortization(isPaymentDay ? roundToTwoDecimalPlaces(amortization) : 0.0);
+	    loanDetails.getPrincipal().setBalance(roundToTwoDecimalPlaces(remainingBalance));
 
-		return loanDetails;
+	    loanDetails.setInterest(new LoanDetails.Interest());
+	    loanDetails.getInterest().setProvision(roundToTwoDecimalPlaces(provisionInterest));
+	    loanDetails.getInterest().setPaid(isPaymentDay ? roundToTwoDecimalPlaces(newPaid) : 0.0);
+	    loanDetails.getInterest().setAccumulated(!isPaymentDay ? roundToTwoDecimalPlaces(accumulatedInterest) : 0.0);
+
+	    return loanDetails;
 	}
+
 
 	private double calculateProvisionInterest(double remainingBalance, double accumulatedInterest, double interestRate, LocalDate startDate, LocalDate endDate) {
 	    long daysBetween = ChronoUnit.DAYS.between(startDate, endDate);
