@@ -1,8 +1,15 @@
 import React from "react";
 
 const LoanCalculatorResult = ({ results }) => {
+  const formatNumber = (number) => {
+    return new Intl.NumberFormat("pt-BR", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(number);
+  };
+
   if (!results || results.length === 0) {
-    return <div>No results to display.</div>;
+    return null;
   }
 
   return (
@@ -39,15 +46,23 @@ const LoanCalculatorResult = ({ results }) => {
         {results.map((item, index) => (
           <tr key={index}>
             <td>{item.loan.competencyDate}</td>
-            <td>{item.loan.loanAmount}</td>
-            <td>{item.loan.outstandingBalance}</td>
-            <td>{item.installment.consolidated || "-"}</td>
-            <td>{item.installment.total || "-"}</td>
-            <td>{item.principal.amortization}</td>
-            <td>{item.principal.balance}</td>
-            <td>{item.interest.provision}</td>
-            <td>{item.interest.accumulated}</td>
-            <td>{item.interest.paid}</td>
+            <td>{formatNumber(item.loan.loanAmount)}</td>
+            <td>{formatNumber(item.loan.outstandingBalance)}</td>
+            <td>
+              {item.installment.consolidated
+                ? item.installment.consolidated
+                : ""}
+            </td>
+            <td>
+              {item.installment.total
+                ? formatNumber(item.installment.total)
+                : ""}
+            </td>
+            <td>{formatNumber(item.principal.amortization)}</td>
+            <td>{formatNumber(item.principal.balance)}</td>
+            <td>{formatNumber(item.interest.provision)}</td>
+            <td>{formatNumber(item.interest.accumulated)}</td>
+            <td>{formatNumber(item.interest.paid)}</td>
           </tr>
         ))}
       </tbody>

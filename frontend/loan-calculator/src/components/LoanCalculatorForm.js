@@ -13,6 +13,23 @@ const LoanCalculatorForm = ({ setResults }) => {
     return `${year}-${month}-${day}`;
   };
 
+  const formatNumber = (number) => {
+    return new Intl.NumberFormat("pt-BR", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(number);
+  };
+
+  const handleLoanAmountChange = (e) => {
+    const value = e.target.value.replace(/\D/g, "");
+    setLoanAmount(formatNumber(value / 100));
+  };
+
+  const handleInterestRateChange = (e) => {
+    const value = e.target.value.replace(/\D/g, "");
+    setInterestRate(formatNumber(value / 100));
+  };
+
   const isFormValid = () => {
     return (
       startDate !== "" &&
@@ -30,8 +47,10 @@ const LoanCalculatorForm = ({ setResults }) => {
       startDate: formatDate(startDate),
       endDate: formatDate(endDate),
       firstPaymentDate: formatDate(firstPaymentDate),
-      loanAmount: parseFloat(loanAmount),
-      interestRate: parseFloat(interestRate),
+      loanAmount: parseFloat(loanAmount.replace(/\./g, "").replace(",", ".")),
+      interestRate: parseFloat(
+        interestRate.replace(/\./g, "").replace(",", ".")
+      ),
     };
 
     try {
@@ -77,23 +96,25 @@ const LoanCalculatorForm = ({ setResults }) => {
       <label>
         Valor do Empréstimo:
         <input
-          type="number"
+          type="text"
           value={loanAmount}
-          onChange={(e) => setLoanAmount(e.target.value)}
+          onChange={handleLoanAmountChange}
           required
-          placeholder="Ex: 140000"
+          placeholder="Ex: 140.000,00"
         />
       </label>
       <label>
         Taxa de Juros:
-        <input
-          type="number"
-          step="0.01"
-          value={interestRate}
-          onChange={(e) => setInterestRate(e.target.value)}
-          required
-          placeholder="Ex: 7.00"
-        />
+        <div className="input-with-percent">
+          <input
+            type="text"
+            value={interestRate}
+            onChange={handleInterestRateChange}
+            required
+            placeholder="Ex: 7,00"
+          />
+          <span className="percent-symbol">%</span>
+        </div>
       </label>
       <button type="submit" disabled={!isFormValid()}>
         Calcular

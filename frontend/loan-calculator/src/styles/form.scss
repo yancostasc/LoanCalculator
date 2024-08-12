@@ -15,18 +15,39 @@ form {
   }
 
   input[type="date"],
-  input[type="number"] {
+  input[type="text"] {
     padding: 0.5rem 0.75rem;
     border: 1px solid $table-border-color;
     border-radius: 8px;
     margin-top: 0.5rem;
     font-size: 1rem;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    -moz-appearance: textfield;
+    appearance: textfield;
 
     &:focus {
       border-color: $primary-color;
       box-shadow: 0 0 0 3px rgba($primary-color, 0.2);
       outline: none;
+    }
+  }
+
+  .input-with-percent {
+    position: relative;
+    display: inline-block;
+
+    input {
+      padding-right: 30px;
+    }
+
+    .percent-symbol {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+      font-weight: bold;
+      color: #333;
     }
   }
 
