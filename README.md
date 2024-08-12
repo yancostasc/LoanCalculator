@@ -19,21 +19,21 @@ Para rodar o backend do projeto:
 
 1. Clone o repositório do GitHub:
 
-   \\\
+   ```
    git clone https://github.com/yancostasc/LoanCalculator.git
-   \\\
+   ```
 
 3. Acesse o diretório do backend:
 
-   \\\
+   ```
    cd seu-repositorio/backend
-   \\\
+   ```
 
 4. Execute o comando Maven para iniciar a aplicação:
 
-   \\\
+   ```
    mvn spring-boot:run
-   \\\
+   ```
 
 ### Frontend
 
@@ -41,16 +41,16 @@ Para rodar o frontend do projeto:
 
 1. Acesse o diretório do frontend:
 
-   \\\
+   ```
    cd seu-repositorio/frontend
-   \\\
+   ```
 
 2. Instale as dependências e inicie a aplicação:
 
-   \\\
+   ```
    npm install
    npm start
-   \\\
+   ```
 
 ### Documentação da API
 
