@@ -10,7 +10,7 @@ Ele permite que os usuários calculem o valor das parcelas de um empréstimo com
 - **Maven**: Ferramenta de automação de build e gerenciamento de dependências.
 - **React**: Biblioteca JavaScript para construção da interface do usuário.
 - **Sass**: Pré-processador CSS utilizado para estilização da aplicação front-end.
-- **Swagger**: Ferramenta usada para documentar e testar a API REST.
+- **Swagger**: Ferramenta usada para documentar e testar a API.
 
 ## Configuração e Execução do Projeto
 
