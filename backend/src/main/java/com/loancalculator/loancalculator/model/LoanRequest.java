@@ -21,12 +21,6 @@ public class LoanRequest {
     @Positive(message = "Taxa de juros deve ser positiva")
     private double interestRate;
 
-    @Positive(message = "Base de dias deve ser positiva")
-    private int baseDays;
-
-    @Positive(message = "Quantidade de parcelas deve ser positiva")
-    private int totalInstallments;
-
 	public LocalDate getStartDate() {
 		return startDate;
 	}
@@ -66,22 +60,5 @@ public class LoanRequest {
 	public void setInterestRate(double interestRate) {
 		this.interestRate = interestRate;
 	}
-
-	public int getBaseDays() {
-		return baseDays;
-	}
-
-	public void setBaseDays(int baseDays) {
-		this.baseDays = baseDays;
-	}
-
-	public int getTotalInstallments() {
-		return totalInstallments;
-	}
-
-	public void setTotalInstallments(int totalInstallments) {
-		this.totalInstallments = totalInstallments;
-	}
-
     
 }

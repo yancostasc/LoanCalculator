@@ -3,6 +3,7 @@ package com.loancalculator.loancalculator.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,7 @@ import com.loancalculator.loancalculator.service.LoanCalculatorService;
 
 @RestController
 @RequestMapping("/api/loans")
+@CrossOrigin(origins = "http://localhost:3000") //
 public class LoanController {
 
     @Autowired
