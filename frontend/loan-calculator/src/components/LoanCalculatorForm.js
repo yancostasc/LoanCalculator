@@ -13,6 +13,16 @@ const LoanCalculatorForm = ({ setResults }) => {
     return `${year}-${month}-${day}`;
   };
 
+  const isFormValid = () => {
+    return (
+      startDate !== "" &&
+      endDate !== "" &&
+      firstPaymentDate !== "" &&
+      loanAmount !== "" &&
+      interestRate !== ""
+    );
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -41,6 +51,7 @@ const LoanCalculatorForm = ({ setResults }) => {
           value={startDate}
           onChange={(e) => setStartDate(e.target.value)}
           required
+          placeholder="dd/mm/aaaa"
         />
       </label>
       <label>
@@ -50,6 +61,7 @@ const LoanCalculatorForm = ({ setResults }) => {
           value={endDate}
           onChange={(e) => setEndDate(e.target.value)}
           required
+          placeholder="dd/mm/aaaa"
         />
       </label>
       <label>
@@ -59,6 +71,7 @@ const LoanCalculatorForm = ({ setResults }) => {
           value={firstPaymentDate}
           onChange={(e) => setFirstPaymentDate(e.target.value)}
           required
+          placeholder="dd/mm/aaaa"
         />
       </label>
       <label>
@@ -68,6 +81,7 @@ const LoanCalculatorForm = ({ setResults }) => {
           value={loanAmount}
           onChange={(e) => setLoanAmount(e.target.value)}
           required
+          placeholder="Ex: 140000"
         />
       </label>
       <label>
@@ -78,9 +92,12 @@ const LoanCalculatorForm = ({ setResults }) => {
           value={interestRate}
           onChange={(e) => setInterestRate(e.target.value)}
           required
+          placeholder="Ex: 7.00"
         />
       </label>
-      <button type="submit">Calcular</button>
+      <button type="submit" disabled={!isFormValid()}>
+        Calcular
+      </button>
     </form>
   );
 };
