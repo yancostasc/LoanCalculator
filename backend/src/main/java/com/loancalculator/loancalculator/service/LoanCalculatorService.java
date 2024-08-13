@@ -67,7 +67,6 @@ public class LoanCalculatorService {
 
 		    // Adiciona detalhes da parcela atual
 		    double newPaid = accumulatedInterest;
-		    System.out.println("teste, provision and accumulated " + newPaid + " - " + provisionInterest + " - " + accumulatedInterest);
 		    LoanDetails loanDetails = createLoanDetail(currentDate, 0, remainingBalance, monthlyAmortization,
 		            provisionInterest, accumulatedInterest, i + 1, true, newPaid);
 		    
